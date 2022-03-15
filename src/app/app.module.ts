@@ -6,17 +6,13 @@ import { FormsModule }   from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TextFieldModule } from '@angular/cdk/text-field';
 
-
-
 import { AppComponent } from './app.component';
 import { ProductsDisplayComponent } from './products-display/products-display.component';
 import { CartDisplayComponent } from './cart-display/cart-display.component';
 
-
 import { DataStoreService } from './data-store.service';
 import { ApiProcessingService } from './api-processing.service';
 import { ToastService } from './toast.service';
-
 
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
@@ -34,9 +30,6 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { ViewOrdersComponent } from './view-orders/view-orders.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
-
-
-
 
 
 @NgModule({

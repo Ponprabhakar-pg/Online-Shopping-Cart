@@ -31,6 +31,9 @@ export class DataStoreService {
             (this.validateProductName(individualProduct.productName)) && this.productData.push(individualProduct);
           }
         )
+      },
+      error => {
+        this.accessToast.triggerToast('Probably your offline!', 20);
       }
     );
     this.dynamicProductData.next(this.productData);
