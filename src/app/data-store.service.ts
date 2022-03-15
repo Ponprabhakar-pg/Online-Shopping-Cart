@@ -100,7 +100,6 @@ export class DataStoreService {
       this.orderedProductList.push(purchaseProduct);
       purchaseProduct.orderId = orderId;
       purchaseProduct.customerId = "pg";
-      delete purchaseProduct.productName;
       this.accessApi.processPostRequest('OrderProducts', 'application/json', purchaseProduct).subscribe(
         responseData => {
           if(responseData){
