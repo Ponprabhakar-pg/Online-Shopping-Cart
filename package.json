@@ -23,6 +23,7 @@
     "@angular/platform-browser": "~13.2.0",
     "@angular/platform-browser-dynamic": "~13.2.0",
     "@angular/router": "~13.2.0",
+    "@angular/service-worker": "~13.2.0",
     "express": "^4.17.3",
     "path": "^0.12.7",
     "rxjs": "~7.5.0",

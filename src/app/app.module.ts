@@ -32,6 +32,8 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ViewOrdersComponent } from './view-orders/view-orders.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 
 
@@ -63,7 +65,13 @@ import { ViewOrdersComponent } from './view-orders/view-orders.component';
     MatMenuModule,
     MatBadgeModule,
     MatSnackBarModule,
-    MatTooltipModule
+    MatTooltipModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: environment.production,
+      // Register the ServiceWorker as soon as the app is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
+    })
   ],
   providers: [DataStoreService, ApiProcessingService, ToastService],
   bootstrap: [AppComponent]
