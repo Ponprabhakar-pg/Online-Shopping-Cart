@@ -97,9 +97,10 @@ export class DataStoreService {
     }
     let orderId: String = String(Date.now()), orderStatus: any = [];
     purchaseCartProducts.map((purchaseProduct: any) => {
+      this.orderedProductList.push(purchaseProduct);
       purchaseProduct.orderId = orderId;
       purchaseProduct.customerId = "pg";
-      this.orderedProductList.push(purchaseProduct);
+      delete purchaseProduct.productName;
       this.accessApi.processPostRequest('OrderProducts', 'application/json', purchaseProduct).subscribe(
         responseData => {
           if(responseData){
