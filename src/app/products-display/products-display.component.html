@@ -1,0 +1,69 @@
+<div style="padding-top: 50px">
+    <mat-toolbar>
+        <mat-toolbar-row>
+          <span>{{displayType}}:</span>
+
+          <span class="spacer"></span>
+
+          <button mat-icon-button class="icon" routerLink="viewCart" matBadge={{this.cartProducts.length}} matBadgeColor="accent" matTooltip="View Cart" matTooltipPosition="below">
+            <mat-icon>shopping_cart</mat-icon>
+          </button>
+
+          <button mat-icon-button class="icon" [matMenuTriggerFor]="menu" matTooltip="Filter" matTooltipPosition="below">
+            <mat-icon>sort</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="displayFilter('all')">All</button>
+            <button mat-menu-item (click)="displayFilter('available')">Available</button>
+            <button mat-menu-item (click)="displayFilter('unavailable')">Unavailable</button>
+          </mat-menu>
+
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <div style="padding-top: 80px">
+        
+        <ng-container 
+            *ngIf="this.products.length>0; then ShowProducts; else ShowSpinner;">
+        </ng-container>
+
+        <ng-template #ShowSpinner>
+            <mat-spinner></mat-spinner>
+        </ng-template>
+
+        <ng-template #ShowProducts>
+            <mat-grid-list [cols]="breakpoint" rowHeight="200px" (window:resize)="onResize($event)">
+                <mat-grid-tile *ngFor="let product of products">
+    
+                    <mat-card style="min-height: 125px;">
+                        <mat-card-title><strong>{{product.productName}}</strong></mat-card-title>
+                        <mat-card-subtitle>Quantity: <strong>{{product.availableQuantity}}</strong></mat-card-subtitle>
+                        <mat-card-actions align="end">
+    
+                            <ng-container
+                                *ngIf="product.availableQuantity>0; then activeAddToCart; else DisabledAddToCart;">
+                            </ng-container>
+                            
+                            <ng-template #activeAddToCart>
+                                <form (submit)="addProductToCart(product.productId, quantity.value);" >
+                                    <mat-form-field appearance="fill" style="max-height: 20px;">
+                                        <mat-label>Purchase Quantity</mat-label>
+                                        <input #quantity type=number min={{1}} height="20px" max={{product.availableQuantity}} required defaultValue={{1}} matInput>
+                                    </mat-form-field>
+                                    <button mat-button><mat-icon>shopping_cart</mat-icon>Add to Cart</button>
+                                </form>
+                            </ng-template>
+                            
+                            <ng-template #DisabledAddToCart>
+                                <button mat-button disabled><mat-icon>remove_shopping_cart</mat-icon>Unavailable</button>
+                            </ng-template>
+    
+                        </mat-card-actions>
+                    </mat-card>
+    
+                </mat-grid-tile>
+            </mat-grid-list>
+        </ng-template>
+
+    </div>
+</div>  

@@ -1,0 +1,46 @@
+<div style="padding-top: 50px">
+    <mat-toolbar>
+        <mat-toolbar-row>
+          <span>My Cart:</span>
+
+          <span class="spacer"></span>
+
+          <button mat-icon-button class="icon" routerLink="" matBadge={{this.products.length}} matBadgeColor="accent" matTooltip="Purchase again" matTooltipPosition="below">
+            <mat-icon>add_shopping_cart</mat-icon>
+          </button>
+
+          <button mat-icon-button class="icon" (click)="orderProducts()" matBadge={{this.cartProducts.length}} matBadgeColor="accent" matTooltip="Submit Order" matTooltipPosition="below">
+            <mat-icon>check</mat-icon>
+          </button>
+
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <div style="padding-top: 80px">
+        
+        <ng-container 
+            *ngIf="this.cartProducts.length>0; then ShowProducts; else ShowAlert;">
+        </ng-container>
+
+        <ng-template #ShowAlert>
+            <h3 style="text-align: center">No Products Added to Cart</h3>
+        </ng-template>
+
+        <ng-template #ShowProducts>
+            <mat-grid-list [cols]="breakpoint" rowHeight="200px" (window:resize)="onResize($event)">
+                <mat-grid-tile *ngFor="let product of cartProducts">
+    
+                    <mat-card style="min-height: 125px;">
+                        <mat-card-title><strong>{{product.productName}}</strong></mat-card-title>
+                        <mat-card-subtitle>Purchased Quantity: <strong>{{product.purchasedQuantity}}</strong></mat-card-subtitle>
+                        <mat-card-actions align="end">
+                            <button mat-button (click)="removeProductFromCart(product)">
+                                <mat-icon>remove_circle</mat-icon>Remove
+                            </button>
+                        </mat-card-actions>
+                    </mat-card>
+                </mat-grid-tile>
+            </mat-grid-list>
+        </ng-template>
+    </div>
+</div>

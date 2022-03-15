@@ -1,0 +1,45 @@
+<div style="padding-top: 50px">
+    <mat-toolbar>
+        <mat-toolbar-row>
+          <span>Check Out:</span>
+
+          <span class="spacer"></span>
+
+          <button mat-icon-button class="icon" (click)="checkOut()" routerLink="" matBadge={{this.products.length}} matBadgeColor="accent" matTooltip="Purchase again" matTooltipPosition="below">
+            <mat-icon>add_shopping_cart</mat-icon>
+          </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <div style="padding-top: 80px">
+        
+        <ng-container 
+            *ngIf="this.orderedProducts.length>0; then ShowProducts; else ShowAlert;">
+        </ng-container>
+
+        <ng-template #ShowAlert>
+            <h3 style="text-align: center">No Products Ordered</h3>
+        </ng-template>
+
+        <ng-template #ShowProducts>
+            <div class="container mat-elevation-z8" style="box-shadow: none">
+                <table style="text-align: center;">
+                  <thead>
+                    <tr>
+                        <th>Product Name</th>
+                        <th>Purchased Quantity</th>
+                    </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let product of orderedProducts">
+                    <td class="cellBorder">{{ product.productName }}</td>
+                    <td class="cellBorder">{{ product.purchasedQuantity }}</td>
+                  </tr>         
+                </tbody>
+                </table>
+                <button (click)="checkOut()" class="container"  routerLink="" mat-raised-button><mat-icon>check</mat-icon>Done!</button>
+              </div>
+        </ng-template>
+
+    </div>
+</div>
