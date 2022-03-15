@@ -71,7 +71,7 @@ export class DataStoreService {
           this.dynamicCartData.next(this.cartData);
         }
       },
-      error => {console.log("error")}
+      error => {this.accessToast.triggerToast('Something went wrong!, Unable to add product',4)}
     );
   }
 
@@ -106,7 +106,7 @@ export class DataStoreService {
             orderStatus.push(purchaseProduct.productId);
           }
         },
-        error => {console.log(error)}
+        error => {this.accessToast.triggerToast('Something went wrong!',4)}
       );
     });
     this.cartData=[];
