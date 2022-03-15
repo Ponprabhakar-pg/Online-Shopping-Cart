@@ -79,7 +79,6 @@ export class DataStoreService {
   }
 
   removeCartProduct(product: any){
-    console.log(product)
     for(let i = 0; i < this.productData.length; i++){
       if(this.productData[i].productId == product.productId){
         this.productData[i].availableQuantity += product.purchasedQuantity;
@@ -93,20 +92,17 @@ export class DataStoreService {
     this.accessToast.triggerToast('Product removed from Cart', 5);
   }
 
-  postProductsOrder(purchaseCartProducts: any){
+  checkoutProductsOrder(purchaseCartProducts: any){
     if(purchaseCartProducts.length <= 0){
       this.accessToast.triggerToast('Cannot place empty Cart, kindly add products!', 4);
       return;
     }
-    let orderId: String = String(Date.now()), orderStatus: any = [];
     purchaseCartProducts.map((purchaseProduct: any) => {
-      this.orderedProductList.push(purchaseProduct);
-      purchaseProduct.orderId = orderId;
-      purchaseProduct.customerId = "pg";
+      this.orderedProductList.push({...purchaseProduct});
       this.accessApi.processPostRequest('OrderProducts', 'application/json', purchaseProduct).subscribe(
         responseData => {
           if(responseData){
-            orderStatus.push(purchaseProduct.productId);
+            this.accessToast.triggerToast('Order successfully placed!',4)
           }
         },
         error => {this.accessToast.triggerToast('Something went wrong!',4)}

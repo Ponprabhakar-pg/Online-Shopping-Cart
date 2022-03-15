@@ -46,7 +46,7 @@
                             
                             <ng-template #activeAddToCart>
                                 <form (submit)="addProductToCart(product.productId, quantity.value);" >
-                                    <mat-form-field appearance="fill" style="max-height: 20px;">
+                                    <mat-form-field appearance="fill" style="max-height: 20px; max-width: 115px; padding-right: 15px;">
                                         <mat-label>Purchase Quantity</mat-label>
                                         <input #quantity type=number min={{1}} height="20px" max={{product.availableQuantity}} required defaultValue={{1}} matInput>
                                     </mat-form-field>

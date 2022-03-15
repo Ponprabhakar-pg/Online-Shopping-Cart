@@ -22,11 +22,11 @@ export class CartDisplayComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.breakpoint = window.innerWidth <= 800 ? 1 : 3;
+    this.breakpoint = window.innerWidth >= 1055 ? 3 : window.innerWidth >= 710 ? 2 : 1;
   }
 
   onResize(event: any) {
-    this.breakpoint = event.target.innerWidth <= 800 ? 1 : 3;
+    this.breakpoint = event.target.innerWidth >= 1055 ? 3 : window.innerWidth >= 710 ? 2 : 1;
   }
 
 
@@ -35,7 +35,7 @@ export class CartDisplayComponent implements OnInit {
   }
 
   orderProducts(){
-    this.accessDataStoreService.postProductsOrder(this.cartProducts);
+    this.accessDataStoreService.checkoutProductsOrder(this.cartProducts);
   }
 
 }

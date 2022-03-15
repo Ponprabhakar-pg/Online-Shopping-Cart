@@ -26,5 +26,17 @@
         ]
       }
     }
+  ],
+  "dataGroups": [
+    {
+      "name": "api-call",
+      "urls": ["https://uiexercise.onemindindia.com/api/Product"],
+      "cacheConfig": {
+        "maxAge": "10h",
+        "maxSize": 100,
+        "strategy": "freshness",
+        "timeout": "10s"
+      }
+    }
   ]
 }

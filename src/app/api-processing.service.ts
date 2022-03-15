@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
+
 export class ApiProcessingService {
 
   baseUrl: String = 'https://uiexercise.onemindindia.com/api/';
@@ -12,12 +13,12 @@ export class ApiProcessingService {
 
 
 
-  processGetRequest(path:String){
+  processGetRequest(path: String){
     return this.http.get(this.baseUrl+''+path);
   }
 
 
-  processPostRequest(path:String, contentType: any, data:object){
+  processPostRequest(path: String, contentType: any, data: any){
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  contentType,
