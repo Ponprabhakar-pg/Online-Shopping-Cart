@@ -1,0 +1,37 @@
+mat-toolbar{
+    position: fixed;
+    top: 1;
+    z-index: 1;
+}
+
+mat-spinner {
+    margin: 0 auto;
+}
+
+.mat-spinner::ng-deep circle {
+    stroke: #5ACB47;
+}
+
+mat-card{
+    width: 70%;
+}
+
+button{
+    background-color: #5ACB47;
+}
+
+mat-toolbar{
+    display: flex;
+    background-color: white;
+    color: #000;
+}
+
+.spacer {
+    flex: 2 2 auto;
+}
+
+
+.icon{
+    margin-top: 20px;
+    margin-left: 15px;
+}

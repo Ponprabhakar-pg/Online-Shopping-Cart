@@ -1,0 +1,40 @@
+<div style="padding-top: 50px">
+    <mat-toolbar>
+        <mat-toolbar-row>
+          <span>Add New Product:</span>
+
+          <span class="spacer"></span>
+
+          <button mat-icon-button class="icon" routerLink="" matBadge={{this.products.length}} matBadgeColor="accent" matTooltip="Purchase Products" matTooltipPosition="below">
+            <mat-icon>add_shopping_cart</mat-icon>
+          </button>
+
+          <button mat-icon-button class="icon" routerLink="/viewCart" matBadge={{this.cartProducts.length}} matBadgeColor="accent" matTooltip="View Cart" matTooltipPosition="below">
+            <mat-icon>shopping_cart</mat-icon>
+          </button>
+
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <div style="height: 50vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;">
+        <mat-card style="max-width: 400px">
+            <form (submit)="addNewProduct(productName.value, quantity.value);" >
+                <mat-form-field appearance="outline" style="width: 80%">
+                    <mat-label>Product Name</mat-label>
+                    <input #productName type=text required matInput>
+                </mat-form-field><br>
+                <mat-form-field appearance="outline" style="width: 80%">
+                    <mat-label>Quantity</mat-label>
+                    <input #quantity type=number required matInput>
+                </mat-form-field><br>
+                <mat-card-actions align="end">
+                    <button mat-button><mat-icon>add</mat-icon>Add Product</button>
+                </mat-card-actions>
+            </form>
+        </mat-card>
+
+    </div>
+</div>  
