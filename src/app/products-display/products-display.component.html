@@ -4,6 +4,14 @@
           <span>{{displayType}}:</span>
 
           <span class="spacer"></span>
+          <mat-form-field style="font-size: 15px; width: 20%; margin-top: 20px">
+            <mat-label><mat-icon style="margin-right: 5px;">search</mat-icon>Search</mat-label>
+            <input #searchProduct (change)="findProduct(searchProduct.value)" type=text matInput>
+            </mat-form-field>
+
+          <button mat-icon-button class="icon" routerLink="addProduct" matTooltip="Add New Product" matTooltipPosition="below">
+            <mat-icon>add</mat-icon>
+          </button>
 
           <button mat-icon-button class="icon" routerLink="viewCart" matBadge={{this.cartProducts.length}} matBadgeColor="accent" matTooltip="View Cart" matTooltipPosition="below">
             <mat-icon>shopping_cart</mat-icon>
@@ -17,6 +25,8 @@
             <button mat-menu-item (click)="displayFilter('available')">Available</button>
             <button mat-menu-item (click)="displayFilter('unavailable')">Unavailable</button>
           </mat-menu>
+          <br>
+          
 
         </mat-toolbar-row>
     </mat-toolbar>
@@ -29,6 +39,7 @@
 
         <ng-template #ShowSpinner>
             <mat-spinner></mat-spinner>
+            <h3 style="text-align: center;">No Items Found</h3>
         </ng-template>
 
         <ng-template #ShowProducts>

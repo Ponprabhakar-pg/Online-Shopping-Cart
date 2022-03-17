@@ -52,21 +52,24 @@ table {
   .container{
     margin: auto;
     width: 50%;
-
-
   }
 
 
   th{
     height: 50px;
+    border-top: 1px solid #000;
+    border-left: 1px solid #000;
     border-bottom: 1px solid #000;
   }
+
+  td:nth-child(3),th:nth-child(3){
+    border-right: 1px solid #000;
+  }
   
+
+
+
   .cellBorder{
     border-bottom: 1px solid #000;
     border-left: 1px solid #000;
-  }
-  
-  .rightBorder{
-    border-right: 1px solid #000;
   }

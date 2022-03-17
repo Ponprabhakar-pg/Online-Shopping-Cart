@@ -5,7 +5,7 @@
 
           <span class="spacer"></span>
 
-          <button mat-icon-button class="icon" (click)="checkOut()" routerLink="" matBadge={{this.products.length}} matBadgeColor="accent" matTooltip="Purchase again" matTooltipPosition="below">
+          <button mat-icon-button class="icon" (click)="checkOut()" routerLink="" matBadge={{this.products.length}} matBadgeColor="accent" matTooltip="Purchase Products" matTooltipPosition="below">
             <mat-icon>add_shopping_cart</mat-icon>
           </button>
         </mat-toolbar-row>
@@ -23,17 +23,22 @@
 
         <ng-template #ShowProducts>
             <div class="container mat-elevation-z8" style="box-shadow: none">
-                <table style="text-align: center;">
+                <table style="text-align: center; padding-top: 100px">
                   <thead>
                     <tr>
                         <th>Product Name</th>
                         <th>Purchased Quantity</th>
+                        <th>Order Status</th>
                     </tr>
                 </thead>
                 <tbody>
                   <tr *ngFor="let product of orderedProducts">
                     <td class="cellBorder">{{ product.productName }}</td>
                     <td class="cellBorder">{{ product.purchasedQuantity }}</td>
+                    <td class="cellBorder">
+                      <button mat-raised-button *ngIf="product.orderStatus==true"><mat-icon>check_circle</mat-icon>Success</button>
+                      <button mat-raised-button *ngIf="product.orderStatus==false" color="warn"><mat-icon>highlight_off</mat-icon>Failed</button>
+                    </td>
                   </tr>         
                 </tbody>
                 </table>

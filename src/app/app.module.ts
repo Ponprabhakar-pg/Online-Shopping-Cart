@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule }   from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TextFieldModule } from '@angular/cdk/text-field';
+
 
 import { AppComponent } from './app.component';
 import { ProductsDisplayComponent } from './products-display/products-display.component';
@@ -30,6 +31,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { ViewOrdersComponent } from './view-orders/view-orders.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { AddNewProductComponent } from './add-new-product/add-new-product.component';
 
 
 @NgModule({
@@ -37,7 +39,9 @@ import { environment } from '../environments/environment';
     AppComponent,
     ProductsDisplayComponent,
     CartDisplayComponent,
-    ViewOrdersComponent
+    ViewOrdersComponent,
+    AddNewProductComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -66,7 +70,7 @@ import { environment } from '../environments/environment';
       registrationStrategy: 'registerWhenStable:30000'
     })
   ],
-  providers: [DataStoreService, ApiProcessingService, ToastService],
+  providers: [DataStoreService, ApiProcessingService, ToastService, HttpClient],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

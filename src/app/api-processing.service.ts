@@ -9,7 +9,7 @@ export class ApiProcessingService {
 
   baseUrl: String = 'https://uiexercise.onemindindia.com/api/';
 
-  constructor(public http: HttpClient) { }
+  constructor(private http: HttpClient) { }
 
 
 
@@ -18,12 +18,12 @@ export class ApiProcessingService {
   }
 
 
-  processPostRequest(path: String, contentType: any, data: any){
+  processPostRequest(path: String, data: any){
     const httpOptions = {
       headers: new HttpHeaders({
-        'Content-Type':  contentType,
+        'Content-Type':  'application/json',
       })
     };
-    return this.http.post(this.baseUrl+''+path, httpOptions, data);
+    return this.http.post(this.baseUrl+''+path, data, httpOptions);
   }
 }

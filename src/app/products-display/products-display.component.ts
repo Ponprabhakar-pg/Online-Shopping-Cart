@@ -51,11 +51,25 @@ export class ProductsDisplayComponent implements OnInit {
     }
   }
 
+  findProduct(searchProductName: String){
+    if(searchProductName.length > 0){
+      this.products = this.productsBackup.filter((product: any) => {
+        if(product.productName.toLowerCase().includes(searchProductName.toLowerCase())){
+          return {...product};
+        }
+      });
+    }
+    else{
+      this.products = this.productsBackup;
+    }
+
+  }
+
   addProductToCart(productId: String, productQuantity: String){
     let specificProduct = { ...this.productsBackup.filter((product: any) => product.productId == productId)[0] };
     delete specificProduct.availableQuantity;
     specificProduct.purchasedQuantity = Number(productQuantity);
-    this.accessDataStoreService.addProduct(specificProduct);
+    this.accessDataStoreService.addProductToCart(specificProduct);
   }
 
 }

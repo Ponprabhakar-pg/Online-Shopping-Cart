@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';    
+import { BehaviorSubject } from 'rxjs'; 
 
 import { ApiProcessingService } from './api-processing.service';
 import { ToastService } from './toast.service';
@@ -24,6 +24,7 @@ export class DataStoreService {
 
 
   getProducts(){
+    this.productData = [];
     this.accessApi.processGetRequest('Product').subscribe(
       responseData => {
         Object.values(responseData).map(
@@ -39,43 +40,57 @@ export class DataStoreService {
     this.dynamicProductData.next(this.productData);
   }
 
+  addProduct(newProduct: any){
+    if(newProduct.availableQuantity <= 0){
+      this.accessToast.triggerToast('Specify Valid Quantity',4);
+      return;
+    }
+    if(!this.validateProductName(newProduct.productName)){
+      this.accessToast.triggerToast('Kindly enter a valid name',4);
+      return;
+    }
+    console.log(newProduct)
+    this.accessApi.processPostRequest('Product', newProduct).subscribe(
+      responseData => { 
+        this.getProducts();
+        this.accessToast.triggerToast('Product Added Successfully!',4); 
+        this.router.navigate(['']);
+      },
+      error => { 
+        this.accessToast.triggerToast('Something went wrong! Unable to add product',4) 
+      }
+    );
+  }
 
-  addProduct(specificProduct: any){
+  addProductToCart(specificProduct: any){
     if(specificProduct.purchasedQuantity <= 0){
       this.accessToast.triggerToast('Specify Valid Quantity',4);
       return;
     }
-    this.accessApi.processPostRequest('Product', 'application/json', specificProduct).subscribe(
-      responseData => {
-        if(responseData){
-          for(let i = 0; i < this.productData.length; i++){
-            if(this.productData[i].productId == specificProduct.productId){
-              if(this.productData[i].availableQuantity < specificProduct.purchasedQuantity){
-                this.accessToast.triggerToast('Your purchase quantity exceeds the available quantity',6);
-                return;
-              }
-              this.productData[i].availableQuantity -= specificProduct.purchasedQuantity;
-              this.accessToast.triggerToast('Product added to Cart',4);
-              break;
-            }
-          }
-          if(this.cartData.filter((product:any)=>product.productId == specificProduct.productId).length>0){
-            for(let i = 0; i < this.cartData.length; i++){
-              if(this.cartData[i].productId == specificProduct.productId){
-                this.cartData[i].purchasedQuantity += specificProduct.purchasedQuantity;
-                break;
-              }
-            }
-          }
-          else{
-            this.cartData.push(specificProduct);
-          }
-          this.dynamicProductData.next(this.productData);
-          this.dynamicCartData.next(this.cartData);
+    for(let i = 0; i < this.productData.length; i++){
+      if(this.productData[i].productId == specificProduct.productId){
+        if(this.productData[i].availableQuantity < specificProduct.purchasedQuantity){
+          this.accessToast.triggerToast('Your purchase quantity exceeds the available quantity',6);
+          return;
         }
-      },
-      error => {this.accessToast.triggerToast('Something went wrong!, Unable to add product',4)}
-    );
+        this.productData[i].availableQuantity -= specificProduct.purchasedQuantity;
+        this.accessToast.triggerToast('Product added to Cart',4);
+        break;
+      }
+    }
+    if(this.cartData.filter((product:any)=>product.productId == specificProduct.productId).length>0){
+      for(let i = 0; i < this.cartData.length; i++){
+        if(this.cartData[i].productId == specificProduct.productId){
+          this.cartData[i].purchasedQuantity += specificProduct.purchasedQuantity;
+          break;
+        }
+      }
+    }
+    else{
+      this.cartData.push(specificProduct);
+    }
+    this.dynamicProductData.next(this.productData);
+    this.dynamicCartData.next(this.cartData);
   }
 
   removeCartProduct(product: any){
@@ -98,15 +113,20 @@ export class DataStoreService {
       return;
     }
     purchaseCartProducts.map((purchaseProduct: any) => {
-      this.orderedProductList.push({...purchaseProduct});
-      this.accessApi.processPostRequest('OrderProducts', 'application/json', purchaseProduct).subscribe(
+      let orderStatusFlag = true;
+      purchaseProduct.quantity = purchaseProduct.purchasedQuantity;
+      this.accessApi.processPostRequest('OrderProducts', purchaseProduct).subscribe(
         responseData => {
           if(responseData){
-            this.accessToast.triggerToast('Order successfully placed!',4)
+            purchaseProduct.orderStatus = true;
           }
         },
-        error => {this.accessToast.triggerToast('Something went wrong!',4)}
+        error => {
+          purchaseProduct.orderStatus = false;
+          this.accessToast.triggerToast('Some products that you ordered are currently unavailable!',4)
+        }
       );
+      this.orderedProductList.push(purchaseProduct);
     });
     this.cartData=[];
     this.dynamicCartData.next(this.cartData);
