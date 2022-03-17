@@ -36,8 +36,8 @@
                     <td class="cellBorder">{{ product.productName }}</td>
                     <td class="cellBorder">{{ product.purchasedQuantity }}</td>
                     <td class="cellBorder">
-                      <button mat-raised-button *ngIf="product.orderStatus==true"><mat-icon>check_circle</mat-icon>Success</button>
-                      <button mat-raised-button *ngIf="product.orderStatus==false" color="warn"><mat-icon>highlight_off</mat-icon>Failed</button>
+                      <button mat-icon-button *ngIf="product.orderStatus==true"><mat-icon>check_circle</mat-icon></button>
+                      <button mat-icon-button *ngIf="product.orderStatus==false" color="warn"><mat-icon>highlight_off</mat-icon></button>
                     </td>
                   </tr>         
                 </tbody>
