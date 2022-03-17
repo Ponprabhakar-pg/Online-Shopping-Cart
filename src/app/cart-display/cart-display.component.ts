@@ -10,7 +10,7 @@ export class CartDisplayComponent implements OnInit {
 
   products: any =[];
   cartProducts: any= [];
-  breakpoint: any;
+  screenBreakpoint: any;
 
   constructor(public accessDataStoreService: DataStoreService) { 
     this.accessDataStoreService.dynamicProductData.subscribe((dynamicProductData: any) => {
@@ -22,11 +22,11 @@ export class CartDisplayComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.breakpoint = window.innerWidth >= 1055 ? 3 : window.innerWidth >= 710 ? 2 : 1;
+    this.screenBreakpoint = window.innerWidth >= 1055 ? 3 : window.innerWidth >= 710 ? 2 : 1;
   }
 
   onResize(event: any) {
-    this.breakpoint = event.target.innerWidth >= 1055 ? 3 : window.innerWidth >= 710 ? 2 : 1;
+    this.screenBreakpoint = event.target.innerWidth >= 1055 ? 3 : window.innerWidth >= 710 ? 2 : 1;
   }
 
 

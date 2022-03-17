@@ -27,7 +27,7 @@
         </ng-template>
 
         <ng-template #ShowProducts>
-            <mat-grid-list [cols]="breakpoint" rowHeight="200px" (window:resize)="onResize($event)">
+            <mat-grid-list [cols]="screenBreakpoint" rowHeight="200px" (window:resize)="onResize($event)">
                 <mat-grid-tile *ngFor="let product of cartProducts">
     
                     <mat-card style="min-height: 125px;">

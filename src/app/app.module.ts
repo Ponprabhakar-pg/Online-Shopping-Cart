@@ -5,6 +5,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { FormsModule }   from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TextFieldModule } from '@angular/cdk/text-field';
+import { environment } from '../environments/environment';
+
 
 
 import { AppComponent } from './app.component';
@@ -30,7 +32,6 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ViewOrdersComponent } from './view-orders/view-orders.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
-import { environment } from '../environments/environment';
 import { AddNewProductComponent } from './add-new-product/add-new-product.component';
 
 
